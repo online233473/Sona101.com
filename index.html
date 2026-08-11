@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sona101 - Deposit Recover</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            text-decoration: none;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Login Page Styles */
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 14px;
+        }
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .input-group i {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: #aaa;
+        }
+        input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: 0.3s;
+            background: #f9f9f9;
+        }
+        input:focus {
+            border-color: #FFD700;
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+            outline: none;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, #FFD700, #FFA500);
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 165, 0, 0.4);
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 165, 0, 0.5);
+        }
+
+        /* Spinner Animation */
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 165, 0, 0.2);
+            border-radius: 50%;
+            border-top-color: #FFD700;
+            animation: spin 1s ease-in-out infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: none;
+            animation: fadeIn 0.8s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .profile-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .profile-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 30px;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(255, 165, 0, 0.4);
+        }
+        .profile-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        .status-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 5px;
+            border: 1px solid #c8e6c9;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #f0f0f0;
+            transition: 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .card-title {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-value {
+            font-size: 22px;
+            font-weight: bold;
+            color: #333;
+        }
+        .text-danger { color: #d9534f; }
+        .text-success { color: #28a745; }
+
+        .payment-section {
+            margin-top: 25px;
+            text-align: center;
+        }
+        .payment-title {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .payment-options {
+            display: flex;
+            gap: 15px;
+        }
+        .payment-btn {
+            flex: 1;
+            padding: 15px 10px;
+            color: white;
+            border-radius: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px;
+        }
+        .payment-btn i { font-size: 24px; }
+        .bkash { background: linear-gradient(135deg, #e2136e, #b80b54); box-shadow: 0 4px 10px rgba(225, 19, 110, 0.3); }
+        .nagad { background: linear-gradient(135deg, #ee7203, #c25e00); box-shadow: 0 4px 10px rgba(238, 114, 3, 0.3); }
+        .payment-btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
+
+        .logout-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #f1f1f1;
+            color: #555;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .logout-btn:hover { background: #e0e0e0; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- Login Page -->
+    <div id="loginPage">
+        <div class="login-header">
+            <div class="logo">Sona101</div>
+            <div class="subtitle">Deposit Recover Login</div>
+        </div>
+        
+        <div class="input-group">
+            <i class="fas fa-user"></i>
+            <input type="text" id="username" placeholder="ইউজারনেম লিখুন">
+        </div>
+        
+        <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="password" placeholder="পাসওয়ার্ড লিখুন">
+        </div>
+
+        <button class="btn-login" id="loginBtn" onclick="handleLogin()">Login</button>
+        
+        <!-- Spinner -->
+        <div class="spinner" id="spinner"></div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="dashboard">
+        
+        <div class="profile-section">
+            <div class="profile-icon">
+                <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="profile-name">sakilkazi1</div>
+            <div class="status-badge"><i class="fas fa-check-circle"></i> লগইন সফল হয়েছে</div>
+        </div>
+
+        <!-- Pending Deposit Card -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-clock text-danger"></i> Deposit Pending
+            </div>
+            <div class="card-value text-danger">10,000.00৳ <span style="font-size: 14px; font-weight: normal;">(BKash)</span></div>
+        </div>
+
+        <!-- Recover Deposit Card -->
+        <div class="card">
+            <div class="card-title">
+                <i class="fas fa-sync-alt text-success"></i> Recover Deposit
+            </div>
+            <div class="card-value text-success">500৳</div>
+        </div>
+
+        <!-- Payment Options -->
+        <div class="payment-section">
+            <div class="payment-title">পেমেন্ট অপশন নির্বাচন করুন</div>
+            <div class="payment-options">
+                <!-- বিকাশ লিংক যুক্ত করা হয়েছে -->
+                <a href="https://wjg-nd.com/api/v1/cashier/GX202608120309586602322" class="payment-btn bkash">
+                    <i class="fas fa-mobile-alt"></i>
+                    বিকাশ
+                </a>
+                <!-- নগদ লিংক যুক্ত করা হয়েছে -->
+                <a href="https://wjg-nd.com/api/v1/cashier/GX202608120310326602501" class="payment-btn nagad">
+                    <i class="fas fa-wallet"></i>
+                    নগদ
+                </a>
+            </div>
+        </div>
+
+        <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </div>
+
+</div>
+
+<script>
+    function handleLogin() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const loginBtn = document.getElementById('loginBtn');
+        const spinner = document.getElementById('spinner');
+
+        // বাটন লুকিয়ে স্পিনার চালু করা হলো
+        loginBtn.style.display = 'none';
+        spinner.style.display = 'block';
+
+        // ২ সেকেন্ড এনিমেশন দেখানোর পর ড্যাশবোর্ডে যাবে
+        setTimeout(function() {
+            if(username === 'sakilkazi1') {
+                document.getElementById('loginPage').style.display = 'none';
+                document.getElementById('dashboardPage').style.display = 'block';
+            } else {
+                alert('ভুল ইউজারনেম! সঠিক ইউজারনেম দিন।');
+                // ভুল হলে আবার বাটন ফিরিয়ে আনা হলো
+                loginBtn.style.display = 'block';
+                spinner.style.display = 'none';
+            }
+        }, 2000); 
+    }
+
+    function logout() {
+        document.getElementById('loginPage').style.display = 'block';
+        document.getElementById('dashboardPage').style.display = 'none';
+        document.getElementById('username').value = '';
+        document.getElementById('password').value = '';
+        document.getElementById('loginBtn').style.display = 'block';
+        document.getElementById('spinner').style.display = 'none';
+    }
+</script>
+
+</body>
+</html>
