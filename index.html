@@ -3,206 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sona101 - Deposit Recover</title>
+    <title>Sona101 - Withdraw Password Recover</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             box-sizing: border-box;
             text-decoration: none;
+            margin: 0;
+            padding: 0;
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: #333;
+            background-color: #0a1f14;
+            background-image: radial-gradient(circle at 50% 0%, #164d2e 0%, #0a1f14 70%);
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            margin: 0;
             padding: 20px;
         }
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 40px;
+            background: linear-gradient(160deg, #0f2b1a, #0a1f14);
+            border: 1px solid #1e4d2b;
             border-radius: 20px;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
             width: 100%;
             max-width: 420px;
-            position: relative;
             overflow: hidden;
+            position: relative;
         }
 
-        /* Login Page Styles */
-        .login-header {
+        /* Banner Section */
+        .banner {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-image: url('https://images.12313214.com/mcs-images/announcement/sona101f3/1726138909753_sona101-640x300.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        .banner::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, #0f2b1a);
+        }
+
+        /* Header Text */
+        .header-text {
             text-align: center;
-            margin-bottom: 30px;
+            padding: 10px 20px 0 20px;
         }
-        .logo {
+        .header-text h1 {
+            color: #f0c040;
             font-size: 32px;
-            font-weight: 800;
-            background: linear-gradient(90deg, #FFD700, #FFA500);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(240, 192, 64, 0.3);
         }
-        .subtitle {
-            color: #666;
+        .highlight-text {
+            background: linear-gradient(90deg, rgba(0, 230, 118, 0.1), rgba(0, 230, 118, 0.2), rgba(0, 230, 118, 0.1));
+            color: #00e676;
+            border: 1px solid rgba(0, 230, 118, 0.4);
+            padding: 10px 20px;
+            border-radius: 25px;
             font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.1);
         }
+
+        /* Form Section */
+        .form-section {
+            padding: 30px;
+        }
+        
+        /* Premium Input Group */
         .input-group {
             position: relative;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        .input-group:focus-within {
+            border-color: #00e676;
+            background: rgba(0, 230, 118, 0.05);
+            box-shadow: 0 0 0 4px rgba(0, 230, 118, 0.1);
         }
         .input-group i {
-            position: absolute;
-            top: 50%;
-            left: 15px;
-            transform: translateY(-50%);
-            color: #aaa;
+            padding: 0 15px 0 18px;
+            color: #5a8062;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+        .input-group:focus-within i {
+            color: #00e676;
+            transform: scale(1.1);
         }
         input {
             width: 100%;
-            padding: 15px 15px 15px 45px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
+            padding: 18px 18px 18px 0;
+            background: transparent;
+            border: none;
+            color: #fff;
             font-size: 16px;
-            transition: 0.3s;
-            background: #f9f9f9;
-        }
-        input:focus {
-            border-color: #FFD700;
-            box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
             outline: none;
         }
-        .btn-login {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(90deg, #FFD700, #FFA500);
-            color: #000;
-            border: none;
-            border-radius: 10px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 165, 0, 0.4);
-        }
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 165, 0, 0.5);
+        input::placeholder { 
+            color: #5a8062; 
+            transition: all 0.3s ease;
         }
 
-        /* Spinner Animation */
+        /* Premium Login Button */
+        .btn-login {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #00e676, #00b248);
+            color: #003d1a;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(0, 230, 118, 0.25);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 230, 118, 0.4);
+            filter: brightness(1.1);
+        }
+        .btn-login:active {
+            transform: translateY(1px);
+        }
+        .btn-login:disabled {
+            background: #2a5c3b;
+            color: #a0c4a8;
+            box-shadow: none;
+            cursor: not-allowed;
+            transform: none;
+            filter: none;
+        }
+
+        /* Spinner */
         .spinner {
             display: none;
             width: 40px;
             height: 40px;
-            border: 4px solid rgba(255, 165, 0, 0.2);
+            border: 4px solid rgba(0, 230, 118, 0.2);
             border-radius: 50%;
-            border-top-color: #FFD700;
+            border-top-color: #00e676;
             animation: spin 1s ease-in-out infinite;
             margin: 20px auto;
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Dashboard Styles */
+        /* Dashboard & Reset Page Common Styles */
         .dashboard {
             display: none;
+            padding: 30px;
             animation: fadeIn 0.8s ease;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .profile-section {
+
+        /* Reset Page Specific */
+        .reset-header {
             text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
+            margin-bottom: 25px;
         }
-        .profile-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #FFD700, #FFA500);
+        .reset-icon {
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, #f0c040, #e6a800);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 10px;
-            font-size: 30px;
-            color: #fff;
-            box-shadow: 0 5px 15px rgba(255, 165, 0, 0.4);
+            margin: 0 auto 15px;
+            font-size: 24px;
+            color: #0a1f14;
+            box-shadow: 0 5px 15px rgba(240, 192, 64, 0.4);
         }
-        .profile-name {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-        }
-        .status-badge {
-            display: inline-block;
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            margin-top: 5px;
-            border: 1px solid #c8e6c9;
-        }
+        .reset-title { font-size: 20px; font-weight: bold; color: #fff; margin-bottom: 5px;}
+        .reset-subtitle { font-size: 14px; color: #8fbc9f; }
 
-        .card {
-            background: #fff;
-            border-radius: 15px;
-            padding: 20px;
+        .pass-status {
+            font-size: 13px;
+            text-align: center;
+            margin-top: -10px;
             margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            border: 1px solid #f0f0f0;
-            transition: 0.3s;
+            height: 16px;
         }
-        .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        .match { color: #00e676; }
+        .nomatch { color: #ff5252; }
+
+        /* Deposit Dashboard Specific */
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #2a5c3b;
         }
-        .card-title {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 5px;
+        .profile-icon {
+            width: 70px; height: 70px;
+            background: linear-gradient(135deg, #f0c040, #e6a800);
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 30px;
+            color: #0a1f14;
+            box-shadow: 0 5px 15px rgba(240, 192, 64, 0.4);
         }
-        .card-value {
-            font-size: 22px;
-            font-weight: bold;
-            color: #333;
+        .dashboard-title { 
+            font-size: 22px; 
+            font-weight: bold; 
+            color: #fff; 
+            line-height: 1.4;
         }
-        .text-danger { color: #d9534f; }
-        .text-success { color: #28a745; }
 
-        .payment-section {
-            margin-top: 25px;
-            text-align: center;
-        }
-        .payment-title {
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-        .payment-options {
-            display: flex;
-            gap: 15px;
-        }
+        .payment-section { text-align: center; }
+        .payment-title { font-size: 16px; color: #a0c4a8; margin-bottom: 15px; font-weight: 600; }
+        .payment-options { display: flex; gap: 15px; }
         .payment-btn {
             flex: 1;
             padding: 15px 10px;
             color: white;
             border-radius: 12px;
             font-weight: bold;
-            cursor: pointer;
             transition: 0.3s;
             display: flex;
             flex-direction: column;
@@ -217,17 +265,17 @@
 
         .logout-btn {
             width: 100%;
-            margin-top: 20px;
+            margin-top: 30px;
             padding: 12px;
-            background: #f1f1f1;
-            color: #555;
-            border: none;
-            border-radius: 10px;
+            background: transparent;
+            color: #ff5252;
+            border: 1px solid rgba(255, 82, 82, 0.5);
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
             transition: 0.3s;
         }
-        .logout-btn:hover { background: #e0e0e0; }
+        .logout-btn:hover { background: rgba(255, 82, 82, 0.1); border-color: #ff5252; }
 
     </style>
 </head>
@@ -235,69 +283,79 @@
 
 <div class="container">
     
-    <!-- Login Page -->
+    <!-- State 1: Login Page -->
     <div id="loginPage">
-        <div class="login-header">
-            <div class="logo">Sona101</div>
-            <div class="subtitle">Deposit Recover Login</div>
-        </div>
-        
-        <div class="input-group">
-            <i class="fas fa-user"></i>
-            <input type="text" id="username" placeholder="ইউজারনেম লিখুন">
-        </div>
-        
-        <div class="input-group">
-            <i class="fas fa-lock"></i>
-            <input type="password" id="password" placeholder="পাসওয়ার্ড লিখুন">
+        <!-- Top Banner Image -->
+        <div class="banner"></div>
+
+        <!-- Header Text -->
+        <div class="header-text">
+            <h1>Sona101</h1>
+            <div class="highlight-text">Withdraw Password Recover</div>
         </div>
 
-        <button class="btn-login" id="loginBtn" onclick="handleLogin()">Login</button>
-        
-        <!-- Spinner -->
-        <div class="spinner" id="spinner"></div>
+        <!-- Login Form -->
+        <div class="form-section">
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="username" placeholder="ইউজারনেম লিখুন">
+            </div>
+
+            <button class="btn-login" id="loginBtn" onclick="handleLogin()">
+                <span>Login</span> <i class="fas fa-sign-in-alt"></i>
+            </button>
+            
+            <!-- Spinner -->
+            <div class="spinner" id="spinner"></div>
+        </div>
     </div>
 
-    <!-- Dashboard Page -->
+    <!-- State 2: Reset Password Page -->
+    <div id="resetPage" class="dashboard">
+        <div class="reset-header">
+            <div class="reset-icon">
+                <i class="fas fa-key"></i>
+            </div>
+            <div class="reset-title">নতুন পাসওয়ার্ড</div>
+            <div class="reset-subtitle">আপনার উইথড্র পাসওয়ার্ড রিকভার করুন</div>
+        </div>
+
+        <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="newPass" placeholder="নতুন পাসওয়ার্ড" oninput="checkPassMatch()">
+        </div>
+
+        <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input type="password" id="confirmPass" placeholder="পুনরায় পাসওয়ার্ড" oninput="checkPassMatch()">
+        </div>
+
+        <div class="pass-status" id="passStatus"></div>
+
+        <button class="btn-login" id="resetBtn" disabled onclick="showDeposit()">
+            <span>Reset</span> <i class="fas fa-check-circle"></i>
+        </button>
+    </div>
+
+    <!-- State 3: Deposit Dashboard Page -->
     <div id="dashboardPage" class="dashboard">
         
-        <div class="profile-section">
+        <div class="dashboard-header">
             <div class="profile-icon">
-                <i class="fas fa-user-circle"></i>
+                <i class="fas fa-shield-alt"></i>
             </div>
-            <div class="profile-name">sakilkazi1</div>
-            <div class="status-badge"><i class="fas fa-check-circle"></i> লগইন সফল হয়েছে</div>
-        </div>
-
-        <!-- Pending Deposit Card -->
-        <div class="card">
-            <div class="card-title">
-                <i class="fas fa-clock text-danger"></i> Deposit Pending
-            </div>
-            <div class="card-value text-danger">10,000.00৳ <span style="font-size: 14px; font-weight: normal;">(BKash)</span></div>
-        </div>
-
-        <!-- Recover Deposit Card -->
-        <div class="card">
-            <div class="card-title">
-                <i class="fas fa-sync-alt text-success"></i> Recover Deposit
-            </div>
-            <div class="card-value text-success">500৳</div>
+            <div class="dashboard-title">ডিপোজিট করে পাসওয়ার্ড পরিবর্তন করুন</div>
         </div>
 
         <!-- Payment Options -->
         <div class="payment-section">
             <div class="payment-title">পেমেন্ট অপশন নির্বাচন করুন</div>
             <div class="payment-options">
-                <!-- বিকাশ লিংক যুক্ত করা হয়েছে -->
                 <a href="https://wjg-nd.com/api/v1/cashier/GX202608120309586602322" class="payment-btn bkash">
-                    <i class="fas fa-mobile-alt"></i>
-                    বিকাশ
+                    <i class="fas fa-mobile-alt"></i> বিকাশ
                 </a>
-                <!-- নগদ লিংক যুক্ত করা হয়েছে -->
                 <a href="https://wjg-nd.com/api/v1/cashier/GX202608120310326602501" class="payment-btn nagad">
-                    <i class="fas fa-wallet"></i>
-                    নগদ
+                    <i class="fas fa-wallet"></i> নগদ
                 </a>
             </div>
         </div>
@@ -310,38 +368,86 @@
 </div>
 
 <script>
+    // ১. লগইন ফাংশন
     function handleLogin() {
         const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
         const loginBtn = document.getElementById('loginBtn');
         const spinner = document.getElementById('spinner');
+
+        if(username.trim() === '') {
+            // ইনপুট ফিল্ড শেক করার এনিমেশন যুক্ত করা হলো
+            const inputGroup = document.querySelector('#loginPage .input-group');
+            inputGroup.style.animation = 'shake 0.3s';
+            setTimeout(() => inputGroup.style.animation = '', 300);
+            return;
+        }
 
         // বাটন লুকিয়ে স্পিনার চালু করা হলো
         loginBtn.style.display = 'none';
         spinner.style.display = 'block';
 
-        // ২ সেকেন্ড এনিমেশন দেখানোর পর ড্যাশবোর্ডে যাবে
+        // ২ সেকেন্ড এনিমেশন দেখানোর পর পাসওয়ার্ড রিসেট পেইজে যাবে
         setTimeout(function() {
-            if(username === 'sakilkazi1') {
-                document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('dashboardPage').style.display = 'block';
-            } else {
-                alert('ভুল ইউজারনেম! সঠিক ইউজারনেম দিন।');
-                // ভুল হলে আবার বাটন ফিরিয়ে আনা হলো
-                loginBtn.style.display = 'block';
-                spinner.style.display = 'none';
-            }
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('resetPage').style.display = 'block';
         }, 2000); 
     }
 
+    // ২. পাসওয়ার্ড মেলানো চেক করার ফাংশন
+    function checkPassMatch() {
+        const newPass = document.getElementById('newPass').value;
+        const confirmPass = document.getElementById('confirmPass').value;
+        const status = document.getElementById('passStatus');
+        const resetBtn = document.getElementById('resetBtn');
+
+        if(newPass === '' && confirmPass === '') {
+            status.innerHTML = '';
+            resetBtn.disabled = true;
+        } else if(newPass === confirmPass) {
+            status.innerHTML = '<i class="fas fa-check-circle"></i> পাসওয়ার্ড মিলেছে';
+            status.className = 'pass-status match';
+            resetBtn.disabled = false;
+        } else {
+            status.innerHTML = '<i class="fas fa-times-circle"></i> পাসওয়ার্ড মিলছে না';
+            status.className = 'pass-status nomatch';
+            resetBtn.disabled = true;
+        }
+    }
+
+    // ৩. রিসেট করে ডিপোজিট পেইজে যাওয়ার ফাংশন
+    function showDeposit() {
+        document.getElementById('resetPage').style.display = 'none';
+        document.getElementById('dashboardPage').style.display = 'block';
+    }
+
+    // ৪. লগআউট ফাংশন
     function logout() {
         document.getElementById('loginPage').style.display = 'block';
+        document.getElementById('resetPage').style.display = 'none';
         document.getElementById('dashboardPage').style.display = 'none';
+        
         document.getElementById('username').value = '';
-        document.getElementById('password').value = '';
-        document.getElementById('loginBtn').style.display = 'block';
+        document.getElementById('newPass').value = '';
+        document.getElementById('confirmPass').value = '';
+        document.getElementById('passStatus').innerHTML = '';
+        document.getElementById('resetBtn').disabled = true;
+        
+        document.getElementById('loginBtn').style.display = 'flex';
         document.getElementById('spinner').style.display = 'none';
     }
+
+    // শেক এনিমেশনের জন্য সিএসএস যুক্ত করা
+    const style = document.createElement('style');
+    style.innerHTML = `
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(5px); }
+            50% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+            100% { transform: translateX(0); }
+        }
+    `;
+    document.head.appendChild(style);
 </script>
 
 </body>
