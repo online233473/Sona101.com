@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sona101 - Withdraw Password Recover</title>
+    <title>Sona101 - Deposit Bonus</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -120,10 +120,7 @@
             font-size: 16px;
             outline: none;
         }
-        input::placeholder { 
-            color: #5a8062; 
-            transition: all 0.3s ease;
-        }
+        input::placeholder { color: #5a8062; }
 
         /* Premium Login Button */
         .btn-login {
@@ -150,9 +147,6 @@
             box-shadow: 0 10px 25px rgba(0, 230, 118, 0.4);
             filter: brightness(1.1);
         }
-        .btn-login:active {
-            transform: translateY(1px);
-        }
         .btn-login:disabled {
             background: #2a5c3b;
             color: #a0c4a8;
@@ -175,7 +169,7 @@
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Dashboard & Reset Page Common Styles */
+        /* Dashboard Common Styles */
         .dashboard {
             display: none;
             padding: 30px;
@@ -186,12 +180,12 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Reset Page Specific */
-        .reset-header {
+        /* Bonus Page Specific */
+        .bonus-header {
             text-align: center;
             margin-bottom: 25px;
         }
-        .reset-icon {
+        .bonus-icon {
             width: 60px; height: 60px;
             background: linear-gradient(135deg, #f0c040, #e6a800);
             border-radius: 50%;
@@ -203,20 +197,73 @@
             color: #0a1f14;
             box-shadow: 0 5px 15px rgba(240, 192, 64, 0.4);
         }
-        .reset-title { font-size: 20px; font-weight: bold; color: #fff; margin-bottom: 5px;}
-        .reset-subtitle { font-size: 14px; color: #8fbc9f; }
+        .bonus-title { font-size: 20px; font-weight: bold; color: #fff; margin-bottom: 5px;}
+        .bonus-subtitle { font-size: 14px; color: #8fbc9f; }
 
-        .pass-status {
-            font-size: 13px;
-            text-align: center;
-            margin-top: -10px;
-            margin-bottom: 15px;
-            height: 16px;
+        .bonus-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
         }
-        .match { color: #00e676; }
-        .nomatch { color: #ff5252; }
+        .bonus-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .bonus-card:hover {
+            border-color: #00e676;
+            background: rgba(0, 230, 118, 0.05);
+        }
+        .bonus-card.active {
+            border-color: #00e676;
+            background: rgba(0, 230, 118, 0.1);
+            box-shadow: 0 0 15px rgba(0, 230, 118, 0.2);
+        }
+        .bonus-card i.icon-left {
+            font-size: 24px;
+            color: #f0c040;
+            background: rgba(240, 192, 64, 0.1);
+            padding: 15px;
+            border-radius: 12px;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .bonus-text {
+            display: flex;
+            flex-direction: column;
+        }
+        .bonus-text span {
+            color: #8fbc9f;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        .bonus-text strong {
+            font-size: 22px;
+            color: #fff;
+        }
+        .bonus-card .check-icon {
+            margin-left: auto;
+            color: #00e676;
+            font-size: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .bonus-card.active .check-icon {
+            opacity: 1;
+        }
 
-        /* Deposit Dashboard Specific */
+        /* Payment Dashboard Specific */
         .dashboard-header {
             text-align: center;
             margin-bottom: 40px;
@@ -225,15 +272,15 @@
         }
         .profile-icon {
             width: 70px; height: 70px;
-            background: linear-gradient(135deg, #f0c040, #e6a800);
+            background: linear-gradient(135deg, #00e676, #00b248);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 15px;
             font-size: 30px;
-            color: #0a1f14;
-            box-shadow: 0 5px 15px rgba(240, 192, 64, 0.4);
+            color: #003d1a;
+            box-shadow: 0 5px 15px rgba(0, 230, 118, 0.4);
         }
         .dashboard-title { 
             font-size: 22px; 
@@ -291,7 +338,7 @@
         <!-- Header Text -->
         <div class="header-text">
             <h1>Sona101</h1>
-            <div class="highlight-text">Withdraw Password Recover</div>
+            <div class="highlight-text">Deposit & Bonus Claim</div>
         </div>
 
         <!-- Login Form -->
@@ -310,51 +357,63 @@
         </div>
     </div>
 
-    <!-- State 2: Reset Password Page -->
-    <div id="resetPage" class="dashboard">
-        <div class="reset-header">
-            <div class="reset-icon">
-                <i class="fas fa-key"></i>
+    <!-- State 2: Bonus Selection Page -->
+    <div id="bonusPage" class="dashboard">
+        <div class="bonus-header">
+            <div class="bonus-icon">
+                <i class="fas fa-gift"></i>
             </div>
-            <div class="reset-title">নতুন পাসওয়ার্ড</div>
-            <div class="reset-subtitle">আপনার উইথড্র পাসওয়ার্ড রিকভার করুন</div>
+            <div class="bonus-title">বোনাস অপশন</div>
+            <div class="bonus-subtitle">আপনার পছন্দের অফারটি সিলেক্ট করুন</div>
         </div>
 
-        <div class="input-group">
-            <i class="fas fa-lock"></i>
-            <input type="password" id="newPass" placeholder="নতুন পাসওয়ার্ড" oninput="checkPassMatch()">
+        <div class="bonus-options">
+            <!-- Bonus Option 1 -->
+            <div class="bonus-card" id="bonus1" onclick="selectBonus('bonus1')">
+                <i class="fas fa-money-bill-wave icon-left"></i>
+                <div class="bonus-text">
+                    <span>Deposit</span>
+                    <strong>300৳</strong>
+                </div>
+                <i class="fas fa-check-circle check-icon"></i>
+            </div>
+
+            <!-- Bonus Option 2 -->
+            <div class="bonus-card" id="bonus2" onclick="selectBonus('bonus2')">
+                <i class="fas fa-coins icon-left"></i>
+                <div class="bonus-text">
+                    <span>Bonus</span>
+                    <strong>700৳</strong>
+                </div>
+                <i class="fas fa-check-circle check-icon"></i>
+            </div>
         </div>
 
-        <div class="input-group">
-            <i class="fas fa-lock"></i>
-            <input type="password" id="confirmPass" placeholder="পুনরায় পাসওয়ার্ড" oninput="checkPassMatch()">
-        </div>
-
-        <div class="pass-status" id="passStatus"></div>
-
-        <button class="btn-login" id="resetBtn" disabled onclick="showDeposit()">
-            <span>Reset</span> <i class="fas fa-check-circle"></i>
+        <button class="btn-login" id="proceedBtn" disabled onclick="showPayment()">
+            <span>Proceed to Payment</span> <i class="fas fa-arrow-right"></i>
         </button>
     </div>
 
-    <!-- State 3: Deposit Dashboard Page -->
+    <!-- State 3: Payment Dashboard Page -->
     <div id="dashboardPage" class="dashboard">
         
         <div class="dashboard-header">
             <div class="profile-icon">
-                <i class="fas fa-shield-alt"></i>
+                <i class="fas fa-check"></i>
             </div>
-            <div class="dashboard-title">ডিপোজিট করে পাসওয়ার্ড পরিবর্তন করুন</div>
+            <div class="dashboard-title">পেমেন্ট সম্পূর্ণ করুন</div>
         </div>
 
         <!-- Payment Options -->
         <div class="payment-section">
             <div class="payment-title">পেমেন্ট অপশন নির্বাচন করুন</div>
             <div class="payment-options">
-                <a href="https://wjg-nd.com/api/v1/cashier/GX202608120309586602322" class="payment-btn bkash">
+                <!-- বিকাশ লিংক আপডেট করা হয়েছে -->
+                <a href="https://www.tigerpay16888.com/payments/payment_bengal/bengal/income/5b252017-a5cd-4c9d-a6ad-56f0e4c11712" class="payment-btn bkash">
                     <i class="fas fa-mobile-alt"></i> বিকাশ
                 </a>
-                <a href="https://wjg-nd.com/api/v1/cashier/GX202608120310326602501" class="payment-btn nagad">
+                <!-- নগদ লিংক আপডেট করা হয়েছে -->
+                <a href="https://www.tigerpay16888.com/payments/payment_bengal/bengal/income/5b252017-a5cd-4c9d-a6ad-56f0e4c11712" class="payment-btn nagad">
                     <i class="fas fa-wallet"></i> নগদ
                 </a>
             </div>
@@ -375,7 +434,7 @@
         const spinner = document.getElementById('spinner');
 
         if(username.trim() === '') {
-            // ইনপুট ফিল্ড শেক করার এনিমেশন যুক্ত করা হলো
+            // ইনপুট ফিল্ড শেক করার এনিমেশন
             const inputGroup = document.querySelector('#loginPage .input-group');
             inputGroup.style.animation = 'shake 0.3s';
             setTimeout(() => inputGroup.style.animation = '', 300);
@@ -386,51 +445,44 @@
         loginBtn.style.display = 'none';
         spinner.style.display = 'block';
 
-        // ২ সেকেন্ড এনিমেশন দেখানোর পর পাসওয়ার্ড রিসেট পেইজে যাবে
+        // ২ সেকেন্ড এনিমেশন দেখানোর পর বোনাস পেইজে যাবে
         setTimeout(function() {
             document.getElementById('loginPage').style.display = 'none';
-            document.getElementById('resetPage').style.display = 'block';
+            document.getElementById('bonusPage').style.display = 'block';
         }, 2000); 
     }
 
-    // ২. পাসওয়ার্ড মেলানো চেক করার ফাংশন
-    function checkPassMatch() {
-        const newPass = document.getElementById('newPass').value;
-        const confirmPass = document.getElementById('confirmPass').value;
-        const status = document.getElementById('passStatus');
-        const resetBtn = document.getElementById('resetBtn');
-
-        if(newPass === '' && confirmPass === '') {
-            status.innerHTML = '';
-            resetBtn.disabled = true;
-        } else if(newPass === confirmPass) {
-            status.innerHTML = '<i class="fas fa-check-circle"></i> পাসওয়ার্ড মিলেছে';
-            status.className = 'pass-status match';
-            resetBtn.disabled = false;
-        } else {
-            status.innerHTML = '<i class="fas fa-times-circle"></i> পাসওয়ার্ড মিলছে না';
-            status.className = 'pass-status nomatch';
-            resetBtn.disabled = true;
-        }
+    // ২. বোনাস সিলেক্ট করার ফাংশন
+    function selectBonus(bonusId) {
+        // আগের সিলেকশন মুছে ফেলা
+        document.querySelectorAll('.bonus-card').forEach(card => {
+            card.classList.remove('active');
+        });
+        
+        // নতুন সিলেকশন একটিভ করা
+        document.getElementById(bonusId).classList.add('active');
+        
+        // পেমেন্ট বাটন চালু করা
+        document.getElementById('proceedBtn').disabled = false;
     }
 
-    // ৩. রিসেট করে ডিপোজিট পেইজে যাওয়ার ফাংশন
-    function showDeposit() {
-        document.getElementById('resetPage').style.display = 'none';
+    // ৩. পেমেন্ট পেইজে যাওয়ার ফাংশন
+    function showPayment() {
+        document.getElementById('bonusPage').style.display = 'none';
         document.getElementById('dashboardPage').style.display = 'block';
     }
 
     // ৪. লগআউট ফাংশন
     function logout() {
+        // সব রিসেট করে লগইন পেইজে ফিরে যাওয়া
         document.getElementById('loginPage').style.display = 'block';
-        document.getElementById('resetPage').style.display = 'none';
+        document.getElementById('bonusPage').style.display = 'none';
         document.getElementById('dashboardPage').style.display = 'none';
         
+        // ইনপুট ও বোনাস ক্লিয়ার করা
         document.getElementById('username').value = '';
-        document.getElementById('newPass').value = '';
-        document.getElementById('confirmPass').value = '';
-        document.getElementById('passStatus').innerHTML = '';
-        document.getElementById('resetBtn').disabled = true;
+        document.querySelectorAll('.bonus-card').forEach(card => card.classList.remove('active'));
+        document.getElementById('proceedBtn').disabled = true;
         
         document.getElementById('loginBtn').style.display = 'flex';
         document.getElementById('spinner').style.display = 'none';
