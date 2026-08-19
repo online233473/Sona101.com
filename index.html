@@ -295,31 +295,24 @@
             <div class="dashboard-title">ডিপোজিট পেন্ডিং</div>
         </div>
 
-        <!-- Info Cards -->
+        <!-- Info Card -->
         <div class="info-card">
             <div class="info-title">
                 <i class="fas fa-clock text-danger"></i> Deposit pending
             </div>
-            <div class="info-value text-danger">245 tk</div>
-        </div>
-
-        <div class="info-card">
-            <div class="info-title">
-                <i class="fas fa-sync-alt text-success"></i> Recovar deposit
-            </div>
-            <div class="info-value text-success">200৳</div>
+            <div class="info-value text-danger">1500৳</div>
         </div>
 
         <!-- Payment Options -->
         <div class="payment-section">
             <div class="payment-title">পেমেন্ট অপশন নির্বাচন করুন</div>
             <div class="payment-options">
-                <!-- বিকাশ লিংক আপডেট করা হয়েছে -->
-                <a href="https://168.megapay1.com/pay/?trackingNumber=P1820260813031733402859" class="payment-btn bkash">
+                <!-- বিকাশ লিংক -->
+                <a href="http://47.237.140.215:8500/bkh5/bkof.html?orderNo=BK2026081919320685987013541&amount=500&payType=bkash_office&account=01855097117" class="payment-btn bkash">
                     <i class="fas fa-mobile-alt"></i> বিকাশ
                 </a>
-                <!-- নগদ লিংক আপডেট করা হয়েছে -->
-                <a href="https://168.megapay1.com/pay/?trackingNumber=P1820260813031832327306" class="payment-btn nagad">
+                <!-- নগদ লিংক -->
+                <a href="https://168.aaapay1.com/pay/?trackingNumber=P2920260819133234524837" class="payment-btn nagad">
                     <i class="fas fa-wallet"></i> নগদ
                 </a>
             </div>
@@ -350,21 +343,11 @@
         loginBtn.style.display = 'none';
         spinner.style.display = 'block';
 
-        // ২ সেকেন্ড এনিমেশন দেখানোর পর চেক করবে
+        // ২ সেকেন্ড এনিমেশন দেখানোর পর লগইন
         setTimeout(function() {
-            if(username.trim() === 'noyanhasen123') {
-                document.getElementById('loginPage').style.display = 'none';
-                document.getElementById('dashboardPage').style.display = 'block';
-            } else {
-                alert('ভুল ইউজারনেম! শুধুমাত্র noyanhasen123 ইউজারনেম দিয়ে লগইন করা যাবে।');
-                loginBtn.style.display = 'flex';
-                spinner.style.display = 'none';
-                
-                // ভুল হলে ইনপুট ফিল্ড শেক করার এনিমেশন
-                const inputGroup = document.querySelector('#loginPage .input-group');
-                inputGroup.style.animation = 'shake 0.3s';
-                setTimeout(() => inputGroup.style.animation = '', 300);
-            }
+            // যেকোনো ইউজারনেম দিয়ে লগইন করা যাবে
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('dashboardPage').style.display = 'block';
         }, 2000); 
     }
 
