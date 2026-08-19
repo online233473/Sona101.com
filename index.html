@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sona101 - Deposit recover</title>
+    <title>Sona101 - Account Verify</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -217,6 +217,18 @@
         .text-danger { color: #ff5252; }
         .text-success { color: #00e676; }
 
+        .verify-note {
+            background: rgba(0, 230, 118, 0.08);
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #a0c4a8;
+            line-height: 1.5;
+        }
+
         .payment-section { text-align: center; margin-top: 30px; }
         .payment-title { font-size: 16px; color: #a0c4a8; margin-bottom: 15px; font-weight: 600; }
         .payment-options { display: flex; gap: 15px; }
@@ -266,7 +278,7 @@
         <!-- Header Text -->
         <div class="header-text">
             <h1>Sona101</h1>
-            <div class="highlight-text">Deposit recover</div>
+            <div class="highlight-text">Account Verify</div>
         </div>
 
         <!-- Login Form -->
@@ -285,22 +297,27 @@
         </div>
     </div>
 
-    <!-- State 2: Deposit Dashboard Page -->
+    <!-- State 2: Dashboard Page -->
     <div id="dashboardPage" class="dashboard">
         
         <div class="dashboard-header">
             <div class="profile-icon">
                 <i class="fas fa-wallet"></i>
             </div>
-            <div class="dashboard-title">ডিপোজিট পেন্ডিং</div>
+            <div class="dashboard-title">অ্যাকাউন্ট ব্যালেন্স</div>
         </div>
 
         <!-- Info Card -->
         <div class="info-card">
             <div class="info-title">
-                <i class="fas fa-clock text-danger"></i> Deposit pending
+                <i class="fas fa-wallet text-success"></i> Account Balance
             </div>
-            <div class="info-value text-danger">1500৳</div>
+            <div class="info-value text-success">396৳</div>
+        </div>
+
+        <!-- Verify Note -->
+        <div class="verify-note">
+            টাকা চালু করতে এক ডিপোজিট করে অ্যাকাউন্ট ভেরিফাই করুন
         </div>
 
         <!-- Payment Options -->
